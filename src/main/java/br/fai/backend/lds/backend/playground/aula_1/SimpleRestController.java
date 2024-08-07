@@ -1,5 +1,6 @@
 package br.fai.backend.lds.backend.playground.aula_1;
 
+import br.fai.backend.lds.backend.playground.aula_1.service.PlaygroundService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -9,18 +10,18 @@ import java.net.URI;
 @RestController // Expoe a classe ao mundo externo
 public class SimpleRestController {
 
+    private PlaygroundService playgroundService = new PlaygroundService();
+
     // Spring boot, solicita permissão firewall, para habilitar porta de uso, com o uso dele não precisa se preocupar com o servidor ou porta.
 
 
     // Get - obter dados
     @GetMapping("listar") //abri a comunicação do método para a clase, se da classe ao mundo externo
     public ResponseEntity<UserPlayground1> get(){
+        UserPlayground1 user = playgroundService.find();
 
-        UserPlayground1 user = new UserPlayground1();
 
-        user.setId(10);
-        user.setEmail("email.email.com");
-        user.setName("First name");
+
 
 
         return ResponseEntity.ok().body(user);
@@ -28,9 +29,6 @@ public class SimpleRestController {
 
     @PostMapping("enviar")
     public ResponseEntity<String > post(@RequestBody UserPlayground1 user){
-        System.out.println("id:" + user.getId());
-        System.out.println("name:" + user.getName());
-        System.out.println("email:" + user.getEmail());
 
 
         final URI uri = ServletUriComponentsBuilder
