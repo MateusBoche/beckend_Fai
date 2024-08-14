@@ -20,6 +20,8 @@ public class SimpleRestController {
     public ResponseEntity<UserPlayground1> get(){
         UserPlayground1 user = playgroundService.find();
 
+        System.out.println(user);
+
 
 
 
