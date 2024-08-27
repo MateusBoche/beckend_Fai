@@ -1,14 +1,23 @@
 package br.fai.backend.lds.backend.main.service.user;
 
 import br.fai.backend.lds.backend.main.domain.UserModel;
+import br.fai.backend.lds.backend.main.port.dao.user.UserDao;
 import br.fai.backend.lds.backend.main.port.service.crud.CrudService;
 import br.fai.backend.lds.backend.main.port.service.user.ReadByEmailService;
 import br.fai.backend.lds.backend.main.port.service.user.UpdatePasswordService;
 import br.fai.backend.lds.backend.main.port.service.user.UserService;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-
+@Service //vaii esquecer na prova segundo o luciano
 public class UserServiceImpl implements UserService {
+
+  private  final UserDao userDao;
+
+  public UserServiceImpl(UserDao userDao) {
+    this.userDao = userDao;
+  }
 
   @Override
   public int create(UserModel entity) {
@@ -27,7 +36,9 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<UserModel> findAll() {
-    return null;
+    System.out.println("findall foi chamado");
+    List<UserModel> userModels=userDao.readAll();
+    return userModels;
   }
 
   @Override
